@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import * 
-from PyQt5.QtWidgets import *
 import PyQt5
 import PyQt5.QtWidgets
 from time import time
@@ -24,7 +21,7 @@ class MyWindow(PyQt5.QtWidgets.QMainWindow):
         
         #tablemodel = MyTableModel(cell,self)
         tablemodel = MyTableModel(datain=cell,parent=self.table)
-        tableview = QTableView(self)
+        tableview = PyQt5.QtWidgets.QTableView(self)
         tableview.setModel(tablemodel)
         
         tableview.verticalHeader().setVisible(False)
@@ -39,9 +36,9 @@ class MyWindow(PyQt5.QtWidgets.QMainWindow):
 
 
 
-class MyTableModel(QAbstractTableModel):
+class MyTableModel(PyQt5.QtCore.QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
-        QAbstractTableModel.__init__(self, parent, *args)
+        PyQt5.QtCore.QAbstractTableModel.__init__(self, parent, *args)
         self.datain = datain
 
     def rowCount(self, parent):
@@ -50,22 +47,22 @@ class MyTableModel(QAbstractTableModel):
     def columnCount(self, parent):
         return 1
 
-    def data(self, index, role=Qt.DisplayRole):
+    def data(self, index, role=PyQt5.QtCore.Qt.DisplayRole):
         if not index.isValid():
-            return QVariant()
-        if role == Qt.FontRole:
-            return QFont('Serif',14)
+            return PyQt5.QtCore.QVariant()
+        if role == PyQt5.QtCore.Qt.FontRole:
+            return PyQt5.QtGui.QFont('Serif',14)
         else:
             try:
-                return QVariant(self.datain)
+                return PyQt5.QtCore.QVariant(self.datain)
             except Exception as e:
                 print(str(e))
-                return QVariant()
+                return PyQt5.QtCore.QVariant()
 
 
 if __name__ == '__main__':
     start_time = time()
-    app = QApplication(sys.argv)
+    app = PyQt5.QtWidgets.QApplication(sys.argv)
     w = MyWindow()
     w.show()
     w.setWindowTitle('<Article Title>')
