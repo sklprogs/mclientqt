@@ -24,6 +24,8 @@ class Table(PyQt5.QtWidgets.QWidget):
         self.layout.addWidget(self.table) 
         self.setLayout(self.layout)
         self.set_bindings()
+        self.hheader = self.table.horizontalHeader()
+        self.hheader.setSectionResizeMode(PyQt5.QtWidgets.QHeaderView.ResizeToContents)
     
     def set_bindings(self):
         PyQt5.QtWidgets.QShortcut(PyQt5.QtGui.QKeySequence('Ctrl+Q'),self).activated.connect(self.close)
