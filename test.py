@@ -9,10 +9,16 @@ cell = 'Общая лексика'
 
 
 class MyWindow(PyQt5.QtWidgets.QMainWindow):
+    
     def __init__(self, *args):
         #QWidget.__init__(self, *args)
         PyQt5.QtWidgets.QMainWindow.__init__(self)
 
+        self.setFixedWidth(400)
+        self.setFixedHeight(300)
+        
+        self.center()
+        
         center = PyQt5.QtWidgets.QWidget(self)
         self.setCentralWidget(center)
         self.layout = PyQt5.QtWidgets.QGridLayout()
@@ -33,6 +39,12 @@ class MyWindow(PyQt5.QtWidgets.QMainWindow):
         table_item = PyQt5.QtWidgets.QTableWidgetItem(cell)
         #self.setLayout(layout)
         self.table.setItem(0,0,table_item)
+    
+    def center(self):
+        geom = self.frameGeometry()
+        coor = PyQt5.QtWidgets.QDesktopWidget().availableGeometry().center()
+        geom.moveCenter(coor)
+        self.move(geom.topLeft())
 
 
 
