@@ -14,24 +14,28 @@ class MyWindow(PyQt5.QtWidgets.QMainWindow):
         #QWidget.__init__(self, *args)
         PyQt5.QtWidgets.QMainWindow.__init__(self)
 
-        self.setFixedWidth(400)
-        self.setFixedHeight(300)
+        #self.setFixedWidth(400)
+        #self.setFixedHeight(300)
         
         self.center()
         
-        center = PyQt5.QtWidgets.QWidget(self)
-        self.setCentralWidget(center)
-        self.layout = PyQt5.QtWidgets.QGridLayout()
-        center.setLayout(self.layout)
+        #center = PyQt5.QtWidgets.QWidget(self)
+        #self.setCentralWidget(center)
+        #self.layout = PyQt5.QtWidgets.QGridLayout()
+        #center.setLayout(self.layout)
         self.table = PyQt5.QtWidgets.QTableWidget(self)
+        self.table.setRowCount(4)
+        self.table.setColumnCount(4)
         
         #tablemodel = MyTableModel(cell,self)
         tablemodel = MyTableModel(datain=cell,parent=self.table)
         tableview = PyQt5.QtWidgets.QTableView(self)
         tableview.setModel(tablemodel)
         
-        tableview.verticalHeader().setVisible(False)
-        tableview.horizontalHeader().setVisible(False)
+        self.vheader = self.table.verticalHeader()
+        self.hheader = self.table.horizontalHeader()
+        #self.vheader.setVisible(False)
+        #tableview.horizontalHeader().setVisible(False)
         
         #layout = QGridLayout(self)
         #layout.setSpacing(1)
@@ -39,6 +43,10 @@ class MyWindow(PyQt5.QtWidgets.QMainWindow):
         table_item = PyQt5.QtWidgets.QTableWidgetItem(cell)
         #self.setLayout(layout)
         self.table.setItem(0,0,table_item)
+        
+        #self.hheader.setSectionResizeMode(PyQt5.QtWidgets.QHeaderView.ResizeToContents)
+        self.hheader.setSectionResizeMode(PyQt5.QtWidgets.QHeaderView.Stretch)
+        self.vheader.setSectionResizeMode(PyQt5.QtWidgets.QHeaderView.Stretch)
     
     def center(self):
         geom = self.frameGeometry()
