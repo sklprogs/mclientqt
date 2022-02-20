@@ -21,13 +21,18 @@ class MyTableModel(PyQt5.QtCore.QAbstractTableModel):
     
     def data(self,index,role=PyQt5.QtCore.Qt.DisplayRole):
         if not index.isValid():
+            print('Return 1')
             return PyQt5.QtCore.QVariant()
         if role == PyQt5.QtCore.Qt.FontRole:
+            print('Return 2')
             return PyQt5.QtGui.QFont('Serif',14)
         else:
+            print('role:',type(role),role)
             try:
+                print('Return 3')
                 return PyQt5.QtCore.QVariant(self.datain)
             except Exception as e:
+                print('Return 4')
                 print(str(e))
                 return PyQt5.QtCore.QVariant()
 
