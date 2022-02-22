@@ -10,13 +10,13 @@ cell = 'Общая лексика'
 class MyTableModel(PyQt5.QtCore.QAbstractTableModel):
     
     def __init__(self, datain, parent=None, *args):
-        PyQt5.QtCore.QAbstractTableModel.__init__(self, parent, *args)
+        PyQt5.QtCore.QAbstractTableModel.__init__(self,parent,*args)
         self.datain = datain
 
-    def rowCount(self, parent=None, *args, **kwargs):
+    def rowCount(self,parent=None,*args,**kwargs):
         return 4
 
-    def columnCount(self, parent=None, *args, **kwargs):
+    def columnCount(self,parent=None,*args,**kwargs):
         return 4
     
     def data(self,index,role=PyQt5.QtCore.Qt.DisplayRole):
