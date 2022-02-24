@@ -9,9 +9,11 @@ cell = 'Общая лексика'
 
 class MyTableModel(PyQt5.QtCore.QAbstractTableModel):
     
-    def __init__(self, datain, parent=None, *args):
+    def __init__(self,datain,parent=None,*args):
         PyQt5.QtCore.QAbstractTableModel.__init__(self,parent,*args)
         self.datain = datain
+        self.painter = PyQt5.QtGui.QPainter()
+        self.painter.setBrush(PyQt5.QtCore.Qt.cyan)
 
     def rowCount(self,parent=None,*args,**kwargs):
         return 4
@@ -20,13 +22,15 @@ class MyTableModel(PyQt5.QtCore.QAbstractTableModel):
         return 4
     
     def data(self,index,role=PyQt5.QtCore.Qt.DisplayRole):
-        print('index:',index,int(index))
+        value = self.datain[index.row()][index.column()]
+        print('value:',value)
         if not index.isValid():
-            print('Return 1')
+            print('Invalid index')
             return PyQt5.QtCore.QVariant()
-        if role == PyQt5.QtCore.Qt.FontRole:
+        if role == PyQt5.QtCore.Qt.ForegroundRole:
             print('Return 2')
-            return PyQt5.QtGui.QFont('Serif',14)
+            #return PyQt5.QtGui.QFont('Serif',14)
+            return PyQt5.QtGui.QBrush(self.painter)
         else:
             print('role:',type(role),role)
             try:
