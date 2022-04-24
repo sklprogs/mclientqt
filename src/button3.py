@@ -17,17 +17,19 @@ class App(QWidget):
     def __init__(self):
         super().__init__()
         self.title = 'PyQt5 button - pythonspot.com'
-        self.left = 100
-        self.top = 100
+        self.left = 500
+        self.top = 500
         self.width = 320
-        self.height = 200
+        self.height = 44
         self.initUI()
     
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         
-        button = QPushButton('', self)
+        self.setStyleSheet('QPushButton:hover {background-color: white;}')
+        
+        button = QPushButton('',self)
         button.setToolTip('This is an example button')
         button.resize(36,36)
         button.move(4,4)
