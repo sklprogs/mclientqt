@@ -23,75 +23,86 @@ class App(QWidget):
         self.height = 44
         self.initUI()
     
+    def create_button(self,icon,action,width=36,height=36,movex=4,movey=4,tooltip='This is an example button'):
+        button = QPushButton('',self)
+        button.setToolTip(tooltip)
+        button.resize(width,height)
+        button.move(movex,movey)
+        # Setting a button image with button.setStyleSheet('image: url({})'.format(path)) causes tooltip glitches
+        button.setIcon(PyQt5.QtGui.QIcon(icon))
+        button.setIconSize(PyQt5.QtCore.QSize(width,height))
+        button.setStyleSheet('border: 0px')
+        button.clicked.connect(action)
+        return button
+    
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         
-        self.setStyleSheet('QPushButton:hover {background-color: white;}')
-        #self.setStyleSheet('QToolTip {background-color: yellow; border: blue solid 1px}')
+        self.setStyleSheet('QPushButton:hover {background-color: white} QToolTip {background-color: #ffffe0}')
         
-        button = QPushButton('',self)
-        button.setToolTip('This is an example button')
-        button.resize(36,36)
-        button.move(4,4)
-        button.setStyleSheet("image: url({});".format(icon1))
-        button.clicked.connect(self.on_click)
+        button = self.create_button (icon = icon1
+                                    ,action = self.on_click
+                                    ,movex = 4
+                                    ,movey = 4
+                                    ,tooltip = 'This is Button 1'
+                                    )
         
-        button2 = QPushButton('', self)
-        button2.setToolTip('This is an example button')
-        button2.resize(36,36)
-        button2.move(43,4)
-        button2.setStyleSheet("image: url({});".format(icon2))
-        button2.clicked.connect(self.on_click)
+        button2 = self.create_button (icon = icon2
+                                     ,action = self.on_click
+                                     ,movex = 43
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 2'
+                                     )
         
-        button3 = QPushButton('', self)
-        button3.setToolTip('This is an example button')
-        button3.resize(36,36)
-        button3.move(82,4)
-        button3.setStyleSheet("image: url({});".format(icon3))
-        button3.clicked.connect(self.on_click)
+        button3 = self.create_button (icon = icon3
+                                     ,action = self.on_click
+                                     ,movex = 82
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 3'
+                                     )
+
+        button4 = self.create_button (icon = icon4
+                                     ,action = self.on_click
+                                     ,movex = 121
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 4'
+                                     )
         
-        button4 = QPushButton('', self)
-        button4.setToolTip('This is an example button')
-        button4.resize(36,36)
-        button4.move(121,4)
-        button4.setStyleSheet("image: url({});".format(icon4))
-        button4.clicked.connect(self.on_click)
+        button5 = self.create_button (icon = icon5
+                                     ,action = self.on_click
+                                     ,movex = 160
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 5'
+                                     )
         
-        button5 = QPushButton('', self)
-        button5.setToolTip('This is an example button')
-        button5.resize(36,36)
-        button5.move(160,4)
-        button5.setStyleSheet("image: url({});".format(icon5))
-        button5.clicked.connect(self.on_click)
+        button6 = self.create_button (icon = icon1
+                                     ,action = self.on_click
+                                     ,movex = 199
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 6'
+                                     )
         
-        button6 = QPushButton('',self)
-        button6.setToolTip('This is an example button')
-        button6.resize(36,36)
-        button6.move(199,4)
-        button6.setStyleSheet("image: url({});".format(icon1))
-        button6.clicked.connect(self.on_click)
-        
-        button7 = QPushButton('',self)
-        button7.setToolTip('This is an example button')
-        button7.resize(36,36)
-        button7.move(238,4)
-        button7.setStyleSheet("image: url({});".format(icon2))
-        button7.clicked.connect(self.on_click)
-        
-        button8 = QPushButton('',self)
-        button8.setToolTip('This is an example button')
-        button8.resize(36,36)
-        button8.move(277,4)
-        button8.setStyleSheet("image: url({});".format(icon3))
-        button8.clicked.connect(self.on_click)
-        
-        button9 = QPushButton('',self)
-        button9.setToolTip('This is an example button')
-        button9.resize(36,36)
-        button9.move(316,4)
-        button9.setStyleSheet("image: url({});".format(icon4))
-        button9.clicked.connect(self.on_click)
+        button7 = self.create_button (icon = icon2
+                                     ,action = self.on_click
+                                     ,movex = 238
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 7'
+                                     )
+
+        button8 = self.create_button (icon = icon3
+                                     ,action = self.on_click
+                                     ,movex = 277
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 8'
+                                     )
+
+        button9 = self.create_button (icon = icon4
+                                     ,action = self.on_click
+                                     ,movex = 316
+                                     ,movey = 4
+                                     ,tooltip = 'This is Button 9'
+                                     )
         
         self.show()
 
