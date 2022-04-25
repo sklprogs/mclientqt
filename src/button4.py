@@ -1,9 +1,7 @@
 #https://pythonspot.com/pyqt5-buttons/
 import sys
 import PyQt5
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
+import PyQt5.QtWidgets
 
 icon1 = '/home/pete/bin/mclient/resources/buttons/icon_36x36_bottom.gif'
 icon2 = '/home/pete/bin/mclient/resources/buttons/icon_36x36_priority_on.gif'
@@ -12,7 +10,7 @@ icon4 = '/home/pete/bin/mclient/resources/buttons/icon_36x36_toggle_history.gif'
 icon5 = '/home/pete/bin/mclient/resources/buttons/icon_36x36_top.gif'
 
 
-class App(QWidget):
+class App(PyQt5.QtWidgets.QWidget):
 
     def __init__(self):
         super().__init__()
@@ -24,7 +22,7 @@ class App(QWidget):
         self.initUI()
     
     def create_button(self,icon,action,width=36,height=36,movex=4,movey=4,tooltip='This is an example button'):
-        button = QPushButton('',self)
+        button = PyQt5.QtWidgets.QPushButton('',self)
         button.setToolTip(tooltip)
         button.resize(width,height)
         button.move(movex,movey)
@@ -106,11 +104,11 @@ class App(QWidget):
         
         self.show()
 
-    @pyqtSlot()
+    @PyQt5.QtCore.pyqtSlot()
     def on_click(self):
         print('PyQt5 button click')
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = PyQt5.QtWidgets.QApplication(sys.argv)
     ex = App()
     sys.exit(app.exec_())
