@@ -43,6 +43,7 @@ class App(QWidget):
         button.clicked.connect(self.on_click)
         
         self.show()
+        print(button.isVisible())
 
     @pyqtSlot()
     def on_click(self):
