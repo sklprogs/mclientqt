@@ -43,6 +43,11 @@ class App(PyQt5.QtWidgets.QWidget):
         self.label.move(self.pos,0)
     
     def trigger_hover(self,source):
+        print('button9 visibility:',self.button9.isVisible())
+        if source.isVisible():
+            print('button is visible')
+        else:
+            print('button is NOT visible')
         if source == self.button1:
             print('button1')
         elif source == self.button2:
