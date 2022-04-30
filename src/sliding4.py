@@ -20,6 +20,7 @@ class App(PyQt5.QtWidgets.QWidget):
         self.top = 500
         self.width = 320
         self.height = 44
+        self.border = 24
         self.pos = 0
         self.initUI()
     
@@ -36,39 +37,38 @@ class App(PyQt5.QtWidgets.QWidget):
         return button
     
     def slide_left(self):
-        self.pos -= 40
+        self.pos -= 15
         self.label.move(self.pos,0)
     
     def slide_right(self):
-        self.pos += 40
+        self.pos += 15
         self.label.move(self.pos,0)
     
-    def trigger_hover(self,button):
-        widget_geom = self.geometry()
-        button_geom = button.geometry()
+    def trigger_hover(self,button,event):
+        geom = self.geometry()
         label_geom = self.label.geometry()
-        label_x1 = label_geom.x()
-        print('Widget geometry:',widget_geom)
-        print('Label geometry:',label_geom)
-        print('button:',button_geom)
-        maxx = widget_geom.width()
-        leftx = label_x1 + button_geom.x()
-        rightx = leftx + button_geom.width()
-        if leftx < 0 or label_x1 < 0:
-            print('Left border is NOT visible')
-            #self.slide_right()
-        elif rightx > maxx:
-            print('Right border is NOT visible')
+        button_geom = button.geometry()
+        print('Widget:',geom)
+        print('Label:',label_geom)
+        print('Button:',button_geom)
+        x = event.x()
+        rootx = label_geom.x()
+        leftx = max(0,rootx)
+        #rightx = min(rootx+label_geom.width(),scr_width)
+        rightx = rootx + label_geom.width()
+        print('x:',x)
+        print('rootx:',rootx)
+        print('leftx:',leftx)
+        print('rightx:',rightx)
+        if x <= leftx + self.border:
             self.slide_left()
-        else:
-            print('button is fully visible')
-        print('')
-        
+        elif x >= rightx - self.border:
+            self.slide_right()
     
     def eventFilter(self,source,event):
         if event.type() == PyQt5.QtCore.QEvent.Enter:
-            print('x:',event.x(),'y:',event.y())
-            self.trigger_hover(source)
+            #print('x:',event.x(),'y:',event.y())
+            self.trigger_hover(source,event)
         ''' *always* return a bool value (meaning that the event has
             been acted upon or not), it's common to call the base class
             implementation and then return the result of that.
@@ -156,6 +156,7 @@ class App(PyQt5.QtWidgets.QWidget):
         
         self.setGeometry(self.left, self.top, self.width, self.height)
         
+        '''
         self.button1.installEventFilter(self)
         self.button2.installEventFilter(self)
         self.button3.installEventFilter(self)
@@ -166,7 +167,8 @@ class App(PyQt5.QtWidgets.QWidget):
         self.button8.installEventFilter(self)
         self.button9.installEventFilter(self)
         self.button10.installEventFilter(self)
-        #self.installEventFilter(self)
+        '''
+        self.installEventFilter(self)
         #print(pyautogui.position())
         
         self.show()
