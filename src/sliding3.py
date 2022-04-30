@@ -43,14 +43,22 @@ class App(PyQt5.QtWidgets.QWidget):
         self.label.move(self.pos,0)
     
     def trigger_hover(self,button):
-        geom = button.geometry()
-        x = geom.x()
-        width = geom.width()
-        rightx = x + width
-        if rightx > self.width:
-            print('button is NOT fully visible')
+        widget_geom = self.geometry()
+        button_geom = button.geometry()
+        label_geom = self.label.geometry()
+        print('Widget geometry:',widget_geom)
+        print('Label geometry:',label_geom)
+        print('button:',button_geom)
+        maxx = widget_geom.width()
+        leftx = label_geom.x() + button_geom.x()
+        rightx = leftx + button_geom.width()
+        if leftx < 0:
+            print('Left border is NOT visible')
+        elif rightx > maxx:
+            print('Right border is NOT visible')
         else:
             print('button is fully visible')
+        print('')
         
     
     def eventFilter(self,source,event):
@@ -142,10 +150,6 @@ class App(PyQt5.QtWidgets.QWidget):
                                            )
         
         self.setGeometry(self.left, self.top, self.width, self.height)
-        print('Widget geometry:',self.geometry())
-        print('Label geometry:',self.label.geometry())
-        print('Button 9 geometry:',self.button9.geometry())
-        print('Button 10 geometry:',self.button10.geometry())
         
         self.button1.installEventFilter(self)
         self.button2.installEventFilter(self)
