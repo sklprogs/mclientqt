@@ -42,37 +42,15 @@ class App(PyQt5.QtWidgets.QWidget):
         self.pos += 10
         self.label.move(self.pos,0)
     
-    def trigger_hover(self,source):
-        print('button 10 visibility:',self.button10.isVisible())
-        if source.isVisible():
-            print('button 10 is visible')
+    def trigger_hover(self,button):
+        geom = button.geometry()
+        x = geom.x()
+        width = geom.width()
+        rightx = x + width
+        if rightx > self.width:
+            print('button is NOT fully visible')
         else:
-            print('button 10 is NOT visible')
-        if source == self.button1:
-            print('button1')
-        elif source == self.button2:
-            print('button2')
-        elif source == self.button3:
-            print('button3')
-        elif source == self.button4:
-            print('button4')
-        elif source == self.button5:
-            print('button5')
-        elif source == self.button6:
-            print('button6')
-        elif source == self.button7:
-            print('button7')
-        elif source == self.button8:
-            print('button8')
-        elif source == self.button9:
-            print('button9')
-        elif source == self.button10:
-            print('button10')
-        else:
-            print('unknown!')
-        print('Widget geometry:',self.geometry())
-        print('Label geometry:',self.label.geometry())
-        print('Button geometry:',source.geometry())
+            print('button is fully visible')
         
     
     def eventFilter(self,source,event):
