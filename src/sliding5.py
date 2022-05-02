@@ -58,21 +58,40 @@ class App(PyQt5.QtWidgets.QWidget):
             self.label.move(self.pos,0)
     
     def trigger_hover(self,event):
-        x = event.x()
-        width = self.geometry().width()
+        ''' We shouldn't use event.x since this returns x relative to
+            the widget that caused the event, and this is widget will be
+            any we have mouse over.
+        '''
+        geom = self.geometry()
+        x = PyQt5.QtGui.QCursor().pos().x() - geom.left()
+        width = geom.width()
         print('width:',width)
         print('x:',x)
-        if x <= width / 2:
+        if 0 <= x <= 30:
             print('Left part. Need to move left to right.')
             self.slide_right()
-        else:
+        elif width - 30 <= x <= width:
             print('Right part. Need to move right to left.')
             self.slide_left()
+        else:
+            print('Nothing to do!')
     
     def eventFilter(self,source,event):
-         if event.type() == PyQt5.QtCore.QEvent.MouseMove:
-             self.trigger_hover(event)
-         return super().eventFilter(source,event)
+        '''
+        if source in (self.button1,self.button2,self.button3
+                     ,self.button4,self.button5,self.button6
+                     ,self.button7,self.button8,self.button9
+                     ,self.button10
+                     ):
+            print('This is a button')
+        elif source == self:
+            print('This is QWidget')
+        else:
+            print('This is an unknown source')
+        '''
+        if event.type() == PyQt5.QtCore.QEvent.MouseMove:
+            self.trigger_hover(event)
+        return super().eventFilter(source,event)
     
     def initUI(self):
         self.setWindowTitle(self.title)
@@ -80,9 +99,6 @@ class App(PyQt5.QtWidgets.QWidget):
         self.setStyleSheet('QPushButton:hover {background-color: white} QToolTip {background-color: #ffffe0}')
         
         self.label = PyQt5.QtWidgets.QWidget(self)
-        
-        PyQt5.QtWidgets.QShortcut(PyQt5.QtGui.QKeySequence('A'),self.label).activated.connect(self.slide_left)
-        PyQt5.QtWidgets.QShortcut(PyQt5.QtGui.QKeySequence('D'),self.label).activated.connect(self.slide_right)
         
         self.button1 = self.create_button (icon = icon1
                                           ,action = self.on_click
@@ -154,12 +170,6 @@ class App(PyQt5.QtWidgets.QWidget):
                                            )
         
         self.setGeometry(self.left,self.top,self.width,self.height)
-        
-        #self.installEventFilter(self)
-        #self.setMouseTracking(True)
-        #self.enterEvent = self.trigger_hover
-        #self.mouseMoveEvent = self.trigger_hover
-        
         self.show()
 
     @PyQt5.QtCore.pyqtSlot()
@@ -169,6 +179,8 @@ class App(PyQt5.QtWidgets.QWidget):
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     ex = App()
-    ex.show()
+    ''' We can get a constant mouse hovering response only if we install
+        the filter like this.
+    '''
     app.installEventFilter(ex)
     sys.exit(app.exec_())
