@@ -45,12 +45,16 @@ class App(PyQt5.QtWidgets.QWidget):
         return button
     
     def slide_left(self):
-        if self.label.geometry().x() + self.offset >= self.delta:
+        x = self.label.geometry().x()
+        print('slide_left: x:',x,'delta:',self.delta,'offset:',self.offset)
+        if x - self.offset >= self.delta:
             self.pos -= self.offset
             self.label.move(self.pos,0)
     
     def slide_right(self):
-        if self.label.geometry().x() - self.offset <= 0:
+        x = self.label.geometry().x()
+        print('slide_right: x:',x,'delta:',self.delta,'offset:',self.offset)
+        if x + self.offset <= 0:
             self.pos += self.offset
             self.label.move(self.pos,0)
     
