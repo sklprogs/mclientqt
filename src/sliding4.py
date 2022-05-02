@@ -21,8 +21,16 @@ class App(PyQt5.QtWidgets.QWidget):
         self.width = 320
         self.height = 44
         self.border = 24
+        self.offset = 15
         self.pos = 0
         self.initUI()
+        self.set_delta()
+    
+    def set_delta(self):
+        f = '[MClientQt] sliding4.App.set_delta'
+        # Set a delta value between a label size and a main widget size
+        self.delta = self.geometry().width() - self.label.geometry().width()
+        print(f,'delta:',self.delta)
     
     def create_button(self,icon,action,width=36,height=36,movex=4,movey=4,tooltip='This is an example button'):
         button = PyQt5.QtWidgets.QPushButton('',self.label)
@@ -37,33 +45,26 @@ class App(PyQt5.QtWidgets.QWidget):
         return button
     
     def slide_left(self):
-        self.pos -= 15
-        self.label.move(self.pos,0)
+        if self.label.geometry().x() + self.offset >= self.delta:
+            self.pos -= self.offset
+            self.label.move(self.pos,0)
     
     def slide_right(self):
-        self.pos += 15
-        self.label.move(self.pos,0)
+        if self.label.geometry().x() - self.offset <= 0:
+            self.pos += self.offset
+            self.label.move(self.pos,0)
     
     def trigger_hover(self,button,event):
-        geom = self.geometry()
-        label_geom = self.label.geometry()
-        button_geom = button.geometry()
-        print('Widget:',geom)
-        print('Label:',label_geom)
-        print('Button:',button_geom)
         x = event.x()
-        rootx = label_geom.x()
-        leftx = max(0,rootx)
-        #rightx = min(rootx+label_geom.width(),scr_width)
-        rightx = rootx + label_geom.width()
+        width = self.geometry().width()
+        print('width:',width)
         print('x:',x)
-        print('rootx:',rootx)
-        print('leftx:',leftx)
-        print('rightx:',rightx)
-        if x <= leftx + self.border:
-            self.slide_left()
-        elif x >= rightx - self.border:
+        if x <= width / 2:
+            print('Left part. Need to move left to right.')
             self.slide_right()
+        else:
+            print('Right part. Need to move right to left.')
+            self.slide_left()
     
     def eventFilter(self,source,event):
         if event.type() == PyQt5.QtCore.QEvent.Enter:
