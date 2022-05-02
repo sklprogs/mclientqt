@@ -19,17 +19,14 @@ class App(PyQt5.QtWidgets.QWidget):
         self.top = 500
         self.width = 320
         self.height = 44
-        self.border = 24
         self.offset = 10
         self.pos = 0
         self.initUI()
         self.set_delta()
     
     def set_delta(self):
-        f = '[MClientQt] sliding4.App.set_delta'
         # Set a delta value between a label size and a main widget size
         self.delta = self.geometry().width() - self.label.geometry().width()
-        print(f,'delta:',self.delta)
     
     def create_button(self,icon,action,width=36,height=36,movex=4,movey=4,tooltip='This is an example button'):
         button = PyQt5.QtWidgets.QPushButton('',self.label)
@@ -44,16 +41,12 @@ class App(PyQt5.QtWidgets.QWidget):
         return button
     
     def slide_left(self):
-        x = self.label.geometry().x()
-        print('slide_left: x:',x,'delta:',self.delta,'offset:',self.offset)
-        if x - self.offset >= self.delta:
+        if self.label.geometry().x() - self.offset >= self.delta:
             self.pos -= self.offset
             self.label.move(self.pos,0)
     
     def slide_right(self):
-        x = self.label.geometry().x()
-        print('slide_right: x:',x,'delta:',self.delta,'offset:',self.offset)
-        if x + self.offset <= 0:
+        if self.label.geometry().x() + self.offset <= 0:
             self.pos += self.offset
             self.label.move(self.pos,0)
     
@@ -65,30 +58,12 @@ class App(PyQt5.QtWidgets.QWidget):
         geom = self.geometry()
         x = PyQt5.QtGui.QCursor().pos().x() - geom.left()
         width = geom.width()
-        print('width:',width)
-        print('x:',x)
         if 0 <= x <= 30:
-            print('Left part. Need to move left to right.')
             self.slide_right()
         elif width - 30 <= x <= width:
-            print('Right part. Need to move right to left.')
             self.slide_left()
-        else:
-            print('Nothing to do!')
     
     def eventFilter(self,source,event):
-        '''
-        if source in (self.button1,self.button2,self.button3
-                     ,self.button4,self.button5,self.button6
-                     ,self.button7,self.button8,self.button9
-                     ,self.button10
-                     ):
-            print('This is a button')
-        elif source == self:
-            print('This is QWidget')
-        else:
-            print('This is an unknown source')
-        '''
         if event.type() == PyQt5.QtCore.QEvent.MouseMove:
             self.trigger_hover(event)
         return super().eventFilter(source,event)
