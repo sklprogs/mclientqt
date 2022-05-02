@@ -20,7 +20,7 @@ class App(PyQt5.QtWidgets.QWidget):
         self.width = 320
         self.height = 44
         self.border = 24
-        self.offset = 15
+        self.offset = 10
         self.pos = 0
         self.initUI()
         self.set_delta()
@@ -68,6 +68,11 @@ class App(PyQt5.QtWidgets.QWidget):
         else:
             print('Right part. Need to move right to left.')
             self.slide_left()
+    
+    def eventFilter(self,source,event):
+         if event.type() == PyQt5.QtCore.QEvent.MouseMove:
+             self.trigger_hover(event)
+         return super().eventFilter(source,event)
     
     def initUI(self):
         self.setWindowTitle(self.title)
@@ -148,10 +153,12 @@ class App(PyQt5.QtWidgets.QWidget):
                                            ,tooltip = 'This is Button 10'
                                            )
         
-        self.setGeometry(self.left, self.top, self.width, self.height)
+        self.setGeometry(self.left,self.top,self.width,self.height)
         
-        self.installEventFilter(self)
-        self.enterEvent = self.trigger_hover
+        #self.installEventFilter(self)
+        #self.setMouseTracking(True)
+        #self.enterEvent = self.trigger_hover
+        #self.mouseMoveEvent = self.trigger_hover
         
         self.show()
 
@@ -162,4 +169,6 @@ class App(PyQt5.QtWidgets.QWidget):
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     ex = App()
+    ex.show()
+    app.installEventFilter(ex)
     sys.exit(app.exec_())
