@@ -9,7 +9,7 @@ import PyQt5.QtWidgets
 class Button:
     
     def __init__ (self,parent,text='',action=None,width=36
-                 ,height=36,movex=4,movey=4,hint='',active=''
+                 ,height=36,hint='',active=''
                  ,inactive=''
                  ):
         self.Status = False
@@ -18,8 +18,6 @@ class Button:
         self.action = action
         self.width = width
         self.height = height
-        self.movex = movex
-        self.movey = movey
         self.hint = hint
         self.active = active
         self.icon = self.inactive = inactive
@@ -44,9 +42,6 @@ class Button:
     def resize(self):
         self.widget.resize(self.width,self.height)
     
-    def move(self):
-        self.widget.move(self.movex,self.movey)
-    
     def set_icon(self):
         ''' Setting a button image with
             button.setStyleSheet('image: url({})'.format(path)) causes
@@ -70,7 +65,6 @@ class Button:
     def set_gui(self):
         self.widget = PyQt5.QtWidgets.QPushButton(self.text,self.parent)
         self.resize()
-        self.move()
         self.set_icon()
         self.set_size()
         self.set_border()
@@ -96,7 +90,7 @@ class App(PyQt5.QtWidgets.QWidget):
         self.table = Table()
         self.panel = Panel()
         self.layout.addWidget(self.table)
-        self.layout.addWidget(self.panel)
+        self.layout.addWidget(self.panel,1)
         self.setLayout(self.layout)
     
     def bind(self,hotkey,action):
@@ -114,13 +108,12 @@ class Table(PyQt5.QtWidgets.QWidget):
     def set_gui(self):
         self.layout = PyQt5.QtWidgets.QGridLayout()
         self.setLayout(self.layout)
-        self.table = PyQt5.QtWidgets.QTableWidget(self)
+        self.table = PyQt5.QtWidgets.QTableWidget()
         self.table.setRowCount(4)
         self.table.setColumnCount(4)
         self.table.setShowGrid(False)
         self.table.horizontalHeader().hide()
         self.table.verticalHeader().hide()
-        
         
     def fill(self):
         for row in range(4):
@@ -128,9 +121,10 @@ class Table(PyQt5.QtWidgets.QWidget):
                 mes = 'row #{}, col #{}'.format(row,col)
                 table_item = PyQt5.QtWidgets.QTableWidgetItem(mes)
                 self.table.setItem(row,col,table_item)
+        self.add_layout()
     
     def add_layout(self):
-        self.layout.addWidget(self.table,0,0)
+        self.layout.addWidget(self.table)
 
 
 
