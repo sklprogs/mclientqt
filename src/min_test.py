@@ -87,9 +87,9 @@ class App(PyQt5.QtWidgets.QWidget):
     
     def set_gui(self):
         self.layout = PyQt5.QtWidgets.QVBoxLayout()
+        self.layout.setContentsMargins(0,0,0,4)
         self.table = Table()
         self.panel = Panel()
-        self.layout.setContentsMargins(0,0,0,4)
         self.layout.addWidget(self.table,4)
         self.layout.addWidget(self.panel,1)
         self.setLayout(self.layout)
@@ -108,6 +108,7 @@ class Table(PyQt5.QtWidgets.QWidget):
     
     def set_gui(self):
         self.layout = PyQt5.QtWidgets.QGridLayout()
+        self.layout.setContentsMargins(0,0,0,0)
         self.setLayout(self.layout)
         self.table = PyQt5.QtWidgets.QTableWidget()
         self.table.setRowCount(4)
@@ -142,7 +143,7 @@ class Panel(PyQt5.QtWidgets.QWidget):
         self.icn_clr = '/home/pete/bin/mclientqt/resources/buttons/clear_search_field.svgz'
     
     def set_widgets(self):
-        self.setMaximumHeight(44)
+        self.setMaximumHeight(45)
         self.panel = PyQt5.QtWidgets.QWidget(self)
         self.layout = PyQt5.QtWidgets.QHBoxLayout()
         # A button to clear the search field
