@@ -87,10 +87,10 @@ class App(PyQt5.QtWidgets.QWidget):
     
     def set_gui(self):
         self.layout = PyQt5.QtWidgets.QVBoxLayout()
-        self.layout.setContentsMargins(0,0,0,4)
+        self.layout.setContentsMargins(0,0,0,0)
         self.table = Table()
         self.panel = Panel()
-        self.layout.addWidget(self.table,4)
+        self.layout.addWidget(self.table)
         self.layout.addWidget(self.panel,1)
         self.setLayout(self.layout)
     
@@ -146,6 +146,7 @@ class Panel(PyQt5.QtWidgets.QWidget):
         self.setMaximumHeight(45)
         self.panel = PyQt5.QtWidgets.QWidget(self)
         self.layout = PyQt5.QtWidgets.QHBoxLayout()
+        self.layout.setContentsMargins(0,0,4,4)
         # A button to clear the search field
         self.btn_clr = Button (parent = self.panel
                               ,hint = 'Clear search field'
