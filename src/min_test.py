@@ -89,6 +89,7 @@ class App(PyQt5.QtWidgets.QWidget):
         self.layout = PyQt5.QtWidgets.QVBoxLayout()
         self.table = Table()
         self.panel = Panel()
+        self.layout.setContentsMargins(0,0,0,4)
         self.layout.addWidget(self.table,4)
         self.layout.addWidget(self.panel,1)
         self.setLayout(self.layout)
