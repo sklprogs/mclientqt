@@ -89,8 +89,8 @@ class App(PyQt5.QtWidgets.QWidget):
         self.layout = PyQt5.QtWidgets.QVBoxLayout()
         self.table = Table()
         self.panel = Panel()
-        self.layout.addWidget(self.table)
-        self.layout.addWidget(self.panel,1)
+        self.layout.addWidget(self.table,1)
+        self.layout.addWidget(self.panel,2)
         self.setLayout(self.layout)
     
     def bind(self,hotkey,action):
