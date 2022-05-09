@@ -109,14 +109,25 @@ class Table(PyQt5.QtWidgets.QWidget):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.set_gui()
+        self.fill()
     
     def set_gui(self):
         self.layout = PyQt5.QtWidgets.QGridLayout()
         self.setLayout(self.layout)
         self.table = PyQt5.QtWidgets.QTableWidget(self)
-    
-    def set_cell(self,cell,rowno,colno):
-        self.table.setItem(rowno,colno,cell)
+        self.table.setRowCount(4)
+        self.table.setColumnCount(4)
+        self.table.setShowGrid(False)
+        self.table.horizontalHeader().hide()
+        self.table.verticalHeader().hide()
+        
+        
+    def fill(self):
+        for row in range(4):
+            for col in range(4):
+                mes = 'row #{}, col #{}'.format(row,col)
+                table_item = PyQt5.QtWidgets.QTableWidgetItem(mes)
+                self.table.setItem(row,col,table_item)
     
     def add_layout(self):
         self.layout.addWidget(self.table,0,0)
