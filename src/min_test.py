@@ -143,10 +143,10 @@ class Panel(PyQt5.QtWidgets.QWidget):
         self.icn_clr = '/home/pete/bin/mclientqt/resources/buttons/clear_search_field.svgz'
     
     def set_widgets(self):
-        self.setMaximumHeight(45)
+        self.setMaximumHeight(44)
         self.panel = PyQt5.QtWidgets.QWidget(self)
         self.layout = PyQt5.QtWidgets.QHBoxLayout()
-        self.layout.setContentsMargins(0,0,4,4)
+        self.layout.setContentsMargins(4,4,4,4)
         # A button to clear the search field
         self.btn_clr = Button (parent = self.panel
                               ,hint = 'Clear search field'
