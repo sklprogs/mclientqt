@@ -136,7 +136,8 @@ class Panel(PyQt5.QtWidgets.QWidget):
         self.icn_clr = '/home/pete/bin/mclientqt/resources/buttons/clear_search_field.svgz'
     
     def set_widgets(self):
-        self.panel = PyQt5.QtWidgets.QWidget(self)
+        #self.panel = PyQt5.QtWidgets.QWidget(self)
+        self.panel = self
         self.layout = PyQt5.QtWidgets.QHBoxLayout()
         # A button to clear the search field
         self.btn_clr = Button (parent = self.panel
@@ -169,6 +170,7 @@ class Panel(PyQt5.QtWidgets.QWidget):
 if __name__ == '__main__':
     f = 'controller.__main__'
     exe = PyQt5.QtWidgets.QApplication(sys.argv)
-    App().show()
-    sys.exit(exe.exec())
-    db.close()
+    # Do not use directly App().show() - window will not be shown
+    app = App()
+    app.show()
+    sys.exit(exe.exec_())
