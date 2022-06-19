@@ -4,24 +4,21 @@ import PyQt5
 import PyQt5.QtWidgets
 import sys
 from skl_shared_qt.localize import _
+import skl_shared_qt.shared as sh
 
 
 
 
 
 if __name__ == '__main__':
-    app = PyQt5.QtWidgets.QApplication(sys.argv)
-    msg = PyQt5.QtWidgets.QMessageBox()
+    f = 'error5.__main__'
+    sh.com.start()
     #msg.setIcon(PyQt5.QtWidgets.QMessageBox.Question)
     #msg.setIcon(PyQt5.QtWidgets.QMessageBox.Information)
     #msg.setIcon(PyQt5.QtWidgets.QMessageBox.Warning)
-    msg.setIcon(PyQt5.QtWidgets.QMessageBox.Critical)
-    msg.setWindowTitle(_('Error'))
-    mes = '[MClient] plugins.utils.subjects.extract.MiddlePage.get_first'
-    mes += '\n\n'
-    mes += _('An unknown mode "{}"!\n\nThe following modes are supported: "{}".')
+    mes = _('An unknown mode "{}"!\n\nThe following modes are supported: "{}".')
     mes = mes.format('hello','1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30.')
-    msg.setText(mes)
-    msg.setText('NOTjing here')
-    #msg.setInformativeText(mes)
-    msg.exec_()
+    mes += '\n\n'
+    mes += '[MClient] plugins.utils.subjects.extract.MiddlePage.get_first'
+    sh.Message(f,mes).show_error()
+    sh.com.end()
